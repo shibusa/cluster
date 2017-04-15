@@ -1,11 +1,11 @@
-### Cisco IOS Cluster deploy
+# Cisco IOS Cluster deploy
 
-# Requirements:
+### Requirements:
 - Python 2.7.10
 - napalm_ios (https://napalm.readthedocs.io/en/latest/#)
 - privileged, SSH access to respective Cisco IOS devices
 
-# Installation
+### Installation
 1. Install "napalm_ios" library.
 ```
 pip install napalm-ios
@@ -16,7 +16,7 @@ pip install napalm-ios
 chmod +x nscript
 ```
 
-# Usage
+### Usage
 1. Template file(s) - Create a file(s) with the respective clustername in the same directory as 'cluster'.  The file should contain standard Cisco IOS formatting with "version #" on the top and "end" at the bottom.  Commands can be written as normal any.  Reusable parts of the template can be denoted in brackets.
 
 Example:
