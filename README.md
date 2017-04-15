@@ -17,7 +17,7 @@ chmod +x nscript
 ```
 
 # Usage
-1. Create a file(s) with the respective clustername in the same directory as 'cluster'.  The file should contain standard Cisco IOS formatting with "version #" on the top and "end" at the bottom.
+1. Template file(s) - Create a file(s) with the respective clustername in the same directory as 'cluster'.  The file should contain standard Cisco IOS formatting with "version #" on the top and "end" at the bottom.  Commands can be written as normal any.  Reusable parts of the template can be denoted in brackets.
 
 Example:
 Filename: basiccluster
@@ -29,7 +29,7 @@ hostname {hostname}
 end
 ```
 
-2. Create a json file with a dictionary of clusternames in the same directory as 'cluster'.  Within each cluster name should be a list of hosts belonging to the cluster and dictionary of options matching cluster file.
+2. Create a json file with a dictionary of clusternames in the same directory as 'cluster'.  Within each cluster name should be a list of hosts belonging to the cluster and dictionary of options matching cluster file.  Option keys must match the brackets defined in the template file.
 
 ```javascript
 {
@@ -48,6 +48,58 @@ end
     }
   }
 }
+```
+
+2a. (OPTIONAL) - With multiple hosts, numerical fields can be incremented/decremented by an additional "adjustments" field alongside with "hosts" and "options".  The "adjustments" field needs to be in a dictionary format and match the same key found in the "options" dictionary.
+
+Cluster File
+```
+version {versionnum}
+
+int range fa1/{intnum}
+ip address {network}{host} {netmask}
+
+end
+```
+
+JSON File
+```javascript
+{
+  "example":{
+    "hosts": ["192.168.1.2","192.168.1.3"],
+    "options":{
+      "versionnum":"12.4",
+      "intnum":0,
+      "network":"10.0.0."
+      "host":240
+      "netmask:":"255.0.0.0"
+    }
+    "adjustments":{
+      "intnum":1
+      "host":-4
+    }
+  }
+}
+```
+
+Host 192.168.1.2 Output
+```
+version {versionnum}
+
+int range fa1/0
+ip address 10.0.0.240 "255.0.0.0"
+
+end
+```
+
+Host 192.168.1.3 Output
+```
+version {versionnum}
+
+int range fa1/1
+ip address 10.0.0.236 "255.0.0.0"
+
+end
 ```
 
 3. Run scripts
