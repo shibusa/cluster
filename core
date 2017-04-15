@@ -1,0 +1,38 @@
+version 12.4
+
+no cdp run
+no ip domain-lookup
+ip routing
+
+spanning-tree vlan {vlannum} priority {spanningtreepriority}
+
+int range fa0/0 - {end0}, fa1/0 - {end1}
+no shutdown
+speed 100
+duplex full
+
+int range fa1/{aggstart} - {aggend}
+channel-group {channelgroupnum} mode on
+
+int range fa1/0 - {end1}, po{channelgroupnum}
+switchport access vlan {vlannum}
+switchport mode access
+
+int vlan {vlannum}
+ip address {ospfnet}{ospfhost} {ospfnetmask}
+ip nat inside
+ip ospf priority {priority}
+
+int loopback{loopbackint}
+ip address {loopbacknet}{loopbackhost} {loopbacknetmask}
+
+router ospf {vlannum}
+router-id {ospfnet}{ospfhost}
+network {ospfnet}0 {ospfwildcard} area 0
+default-information originate
+
+router bgp {bgpnum}
+neighbor {loopbacknet}{bgpneighborhost} remote-as {bgpnum}
+neighbor {loopbacknet}{bgpneighborhost} update-source loopback{loopbackint}
+
+end

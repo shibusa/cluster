@@ -1,0 +1,80 @@
+#!/usr/bin/env python
+
+import napalm_ios
+import getpass
+import sys
+import os
+import json
+
+def main(hosts):
+    login = raw_input("Login: ")
+    passwd = getpass.getpass("Password: ")
+
+    data = json.load(open(hosts)).iteritems()
+
+    for cluster, settings in data:
+        hosts = settings["hosts"]
+        options = settings["options"]
+        adjustments = settings["adjustments"]
+
+        for host in hosts:
+            configload= open(cluster).read().format(**options)
+
+            connection = napalm_ios.IOSDriver(hostname=host, username=login, password=passwd)
+            connection.open()
+            print "-"*10 + "Deploying to",host + "-"*10 + "\n" + configload
+            connection.load_merge_candidate(config=configload)
+
+            # For Auto Commit
+            connection.commit_config()
+
+            # For Human Interaction Required
+            # print connection.compare_config()
+            # choice = raw_input("\nWould you like to commit these changes? [yN]: ")
+            # if choice == 'y':
+            #   print 'Committing ...'
+            #   connection.commit_config()
+            # else:
+            #   print 'Discarding ...'
+            #   connection.discard_config()
+
+            connection.close()
+
+            for option in adjustments:
+                options[option] += adjustments[option]
+
+def errcheck(errorlist):
+    if len(errorlist) > 0:
+        for error in errorlist:
+            print error
+        sys.exit(1)
+
+# Error checks for configuration files
+# Rewrite errors to use dictionaries of errors
+if __name__ == '__main__':
+    try:
+        hostsfile = sys.argv[1]
+    except IndexError:
+        print 'usage: nscript HOSTSJSON'
+        sys.exit(1)
+
+
+    errors = []
+    # Check if json exists
+    for item in [hostsfile]:
+        if not (os.path.exists(item) and os.path.isfile(item) and hostsfile.endswith(".json")):
+            errors.append('Missing or invalid file (.json): {0}'.format(item))
+    errcheck(errors)
+
+    # Check if clusterfile exists and if json is formatted properly
+    changescheck = json.load(open(hostsfile))
+    for cluster, settings in changescheck.iteritems():
+        if not (os.path.exists(cluster) and os.path.isfile(cluster)):
+            errors.append('Missing or invalid cluster file for: "{}"'.format(cluster))
+        if "hosts" not in settings.keys():
+            errors.append('Missing hosts list for "{}"'.format(cluster))
+        if "options" not in settings.keys():
+            errors.append('Missing options dictionary in "{}"'.format(cluster))
+    errcheck(errors)
+
+    main(hostsfile)

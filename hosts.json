@@ -1,0 +1,34 @@
+{
+  "core":{
+    "hosts": ["192.168.5.1","192.168.5.2"],
+    "options":{
+      "spanningtreepriority":8192,
+      "end0": 1,
+      "end1": 14,
+      "aggstart": 13,
+      "aggend": 14,
+      "channelgroupnum": 1,
+      "vlannum": 10,
+      "mgmtvlannum":"5",
+      "mgmt":"15",
+      "ospfnet":"192.168.10.",
+      "ospfhost":1,
+      "ospfnetmask":"255.255.255.0",
+      "ospfwildcard":"0.0.0.255",
+      "priority":255,
+      "loopbackint":0,
+      "loopbacknet":"1.0.0.",
+      "loopbackhost":1,
+      "loopbacknetmask":"255.255.255.255",
+      "bgpneighborhost":2,
+      "bgpnum":1000
+    },
+    "adjustments":{
+      "spanningtreepriority":8192,
+      "ospfhost":1,
+      "priority":-1,
+      "loopbackhost":1,
+      "bgpneighborhost":-1
+    }
+  }
+}
