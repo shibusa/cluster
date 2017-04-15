@@ -102,7 +102,7 @@ ip address 10.0.0.236 "255.0.0.0"
 end
 ```
 
-3. Run scripts
+3. Run cluster
 ```
 ./cluster FILE.json
 ```
