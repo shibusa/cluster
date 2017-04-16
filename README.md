@@ -1,4 +1,4 @@
-# Cisco IOS Cluster deploy
+# Multithreaded Cisco IOS Cluster deploy
 
 ### Requirements:
 - Python 2.7.10
