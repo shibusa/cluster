@@ -87,7 +87,7 @@ Host 192.168.1.2 Output
 version 12.4
 
 int range fa1/0
-ip address 10.0.0.240 "255.0.0.0"
+ip address 10.0.0.240 255.0.0.0
 
 end
 ```
@@ -97,7 +97,7 @@ Host 192.168.1.3 Output
 version 12.4
 
 int range fa1/1
-ip address 10.0.0.236 "255.0.0.0"
+ip address 10.0.0.236 255.0.0.0
 
 end
 ```
