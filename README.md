@@ -11,9 +11,9 @@
 pip install napalm-ios
 ```
 
-2. Make nscript executable
+2. Make cluster executable
 ```
-chmod +x nscript
+chmod +x cluster
 ```
 
 ### Usage
