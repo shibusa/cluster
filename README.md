@@ -6,12 +6,17 @@
 - privileged, SSH access to respective Cisco IOS devices
 
 ### Installation
-1. Install "napalm_ios" library.
+1. Install system dependencies
 ```
-pip install napalm-ios
+https://napalm.readthedocs.io/en/latest/installation/ios.html
 ```
 
-2. Make cluster executable
+2. Install "napalm_ios" library.
+```
+pip install napalm-ios==0.6.1
+```
+
+3. Make cluster executable
 ```
 chmod +x cluster
 ```
@@ -33,7 +38,7 @@ end
 
 ```javascript
 {
-  "basiccluster":{
+  "bassiccluster":{
     "hosts": ["HOST1","HOST2","HOST3"],
     "options":{
       "versionnum":"12.4",

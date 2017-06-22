@@ -66,7 +66,7 @@ if __name__ == '__main__':
     try:
         hostsfile = sys.argv[1]
     except IndexError:
-        print 'usage: nscript HOSTSJSON'
+        print 'usage: ./cluster JSONFILENAME'
         sys.exit(1)
 
     errors = []
