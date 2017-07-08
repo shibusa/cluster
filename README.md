@@ -78,7 +78,7 @@ JSON File
       "network":"10.0.0."
       "host":240
       "netmask:":"255.0.0.0"
-    }
+    },
     "adjustments":{
       "intnum":1
       "host":-4
