@@ -1,4 +1,6 @@
 # Cluster - Multithreaded Cisco IOS Cluster Deployment Tool
+![Cluster Demo](./clusterdemo.png)
+*(screenshot taken from [Network Lab](https://github.com/shibusa/networklab) deploy)*
 
 ### Requirements:
 - Python 2.7.10
